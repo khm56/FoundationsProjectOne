@@ -75,8 +75,8 @@ def get_order():
     # your code goes here!
     print("What is your order? (Enter the exact spelling of the item you want. Type'Exit' to end your order.")
     while True:
-        temp_in = raw_input()
-        temp_in=temp_in.lower()
+        temp_in = input()
+        temp_in=str(temp_in.lower())
         if temp_in=="exit":
             break
         elif is_valid_order(temp_in)== True:
@@ -126,19 +126,26 @@ def print_order(order_list):
     for item in order_list:
         print("- %s" %(item))
     get_total_price(order_list)
-    confirm=raw_input("Confirm? (Y/N) ")
-    confirm=confirm.upper()
+    confirm=input("Confirm? (Y/N) ")
+    confirm=str(confirm.upper())
     if confirm=="Y":
         print("Thank you for shopping at %s" %(cupcake_shop_name))
     elif confirm=="N":
-        aor=raw_input("Do you want to remove items? (Y/N) ")
-        aor=aor.upper()
+        aor=input("Do you want to remove items? (Y/N) ")
+        aor=str(aor.upper())
         if aor=="Y":
             print("What is the item you want to remove? please type it the exact same way as in your order list")
-            item=raw_input()
-            item=item.lower()
-            order_list.remove(item)
-            print_order(order_list)
+            item=input()
+            item=str(item.lower())
+            exi=False
+            for order in order_list:
+                if order==item:
+                    exi=True
+                    order_list.remove(item)
+                    print_order(order_list)
+            if exi==False:
+                print("Your input does not exist in your order")
+                print_order(order_list)
         elif aor=="N":
             print_order(order_list)
         else:
